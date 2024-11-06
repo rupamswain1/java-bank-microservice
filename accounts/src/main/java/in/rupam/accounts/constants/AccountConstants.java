@@ -5,8 +5,8 @@ public class AccountConstants {
         //restrict initialization
     }
 
-    private static final String SAVINGS = "Savings";
-    private static final String ADDRESS = "HAL Road";
+    public static final String SAVINGS = "Savings";
+    public static final String ADDRESS = "HAL Road";
     public static final String STATUS_201 = "201";
     public static final String MESSAGE_201 = "Account Created Successfully";
     public static final String STATUS_200 = "200";

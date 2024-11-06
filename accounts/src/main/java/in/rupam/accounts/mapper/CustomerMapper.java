@@ -3,7 +3,7 @@ package in.rupam.accounts.mapper;
 import in.rupam.accounts.dto.CustomerDto;
 import in.rupam.accounts.model.Customer;
 
-public class CutomerMapper {
+public class CustomerMapper {
 
     public static CustomerDto mapCustomerToDto(Customer customer, CustomerDto customerDto) {
         customerDto.setEmail(customer.getEmail());
