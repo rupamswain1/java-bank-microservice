@@ -1,8 +1,11 @@
 package in.rupam.accounts.services.impl;
 
 import in.rupam.accounts.constants.AccountConstants;
+import in.rupam.accounts.dto.AccountDto;
 import in.rupam.accounts.dto.CustomerDto;
 import in.rupam.accounts.exceptions.CustomerAlreadyExistsException;
+import in.rupam.accounts.exceptions.ResourceNotAvailableException;
+import in.rupam.accounts.mapper.AccountMapper;
 import in.rupam.accounts.mapper.CustomerMapper;
 import in.rupam.accounts.model.Account;
 import in.rupam.accounts.model.Customer;
@@ -10,6 +13,7 @@ import in.rupam.accounts.repository.AccountRepository;
 import in.rupam.accounts.repository.CustomerRepository;
 import in.rupam.accounts.services.IAccountService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -37,6 +41,23 @@ public class AccountService implements IAccountService {
         customer.setCreatedAt(LocalDateTime.now());
         Customer newCustomer = customerRepository.save(customer);
         accountRepository.save(createNewAccount(newCustomer));
+    }
+
+    /**
+     * @param mobileNumber
+     * @return CustomerDto with customer details
+     */
+    @Override
+    public CustomerDto getCustomer(String mobileNumber) {
+        Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                () -> new ResourceNotAvailableException("Customer", "mobileNumber", mobileNumber)
+        );
+        Account account = accountRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(
+                () -> new ResourceNotAvailableException("Customer", "mobileNumber", mobileNumber)
+        );
+        CustomerDto customerDto = CustomerMapper.mapCustomerToDto(customer, new CustomerDto());
+        customerDto.setAccountDto(AccountMapper.mapAccountsToDto(account, new AccountDto()));
+        return customerDto;
     }
 
     private Account createNewAccount(Customer customer) {
