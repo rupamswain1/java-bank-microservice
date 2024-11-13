@@ -29,4 +29,18 @@ public class AccountsController {
     public ResponseEntity<CustomerDto> fetchCustomer(@RequestParam String mobileNumber) {
         return new ResponseEntity<>(accountService.getCustomer(mobileNumber), HttpStatus.OK);
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<ResponseDto> updateCustomerAndAccount(@RequestBody CustomerDto customerDto) {
+        boolean isUpdated = accountService.updateCustomer(customerDto);
+        if (isUpdated) {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new ResponseDto(AccountConstants.STATUS_200, AccountConstants.MESSAGE_200));
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new ResponseDto(AccountConstants.STATUS_500, AccountConstants.MESSAGE_500));
+        }
+    }
 }

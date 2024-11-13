@@ -13,4 +13,12 @@ public interface IAccountService {
      * @return CustomerDto with customer details
      */
     CustomerDto getCustomer(String mobileNumber);
+
+    /**
+     * updates customer details based on the accountNumberProvided
+     *
+     * @param customerDto customerDTO object
+     * @returns a boolean value
+     */
+    boolean updateCustomer(CustomerDto customerDto);
 }

@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"test\",\n    \"email\":\"test@test.com\",\n    \"mobileNumber\":\"1234567890\"\n}",
+					"raw": "{\n    \"name\":\"test1\",\n    \"email\":\"test1@test.com\",\n    \"mobileNumber\":\"1234567890\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -56,6 +56,35 @@
 							"key": "mobileNumber",
 							"value": "1234567891"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update customer",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"testUpdated\",\n    \"email\": \"testUpdated@test.com\",\n    \"mobileNumber\": \"1234567891\",\n    \"accountDto\": {\n        \"accountNumber\": 1111235018,\n        \"accountType\": \"Current\",\n        \"branchAddress\": \"Airport Road\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"update"
 					]
 				}
 			},

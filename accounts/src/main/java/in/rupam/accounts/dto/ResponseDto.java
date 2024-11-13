@@ -2,6 +2,7 @@ package in.rupam.accounts.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.http.HttpStatusCode;
 
 @Data
 @AllArgsConstructor
