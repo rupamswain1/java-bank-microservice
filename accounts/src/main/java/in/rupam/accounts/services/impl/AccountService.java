@@ -75,11 +75,11 @@ public class AccountService implements IAccountService {
     @Override
     public boolean updateCustomer(CustomerDto customerDto) {
         AccountDto accountDto = customerDto.getAccountDto();
-        Account account = accountRepository.findByAccountNumber(accountDto.getAccountNumber()).orElseThrow(
+        Account account = accountRepository.findById(accountDto.getAccountNumber()).orElseThrow(
                 () -> new ResourceNotAvailableException("Account", "accountNumber", accountDto.getAccountNumber())
         );
         Long customerId = account.getCustomerId();
-        Customer customer = customerRepository.findByCustomerId(account.getCustomerId()).orElseThrow(
+        Customer customer = customerRepository.findById(account.getCustomerId()).orElseThrow(
                 () -> new ResourceNotAvailableException("Customer", "accountNumber", customerId)
         );
         account = AccountMapper.mapDtoToAccount(accountDto, new Account());
@@ -94,5 +94,24 @@ public class AccountService implements IAccountService {
         customerRepository.save(updatedCustomer);
         return true;
     }
+
+    /**
+     * delete customer and account related to customer
+     *
+     * @param mobileNumber customer's mobile number
+     * @return boolean
+     */
+    @Override
+    public boolean deleteCustomer(String mobileNumber) {
+        boolean isDeleted = false;
+        Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                () -> new ResourceNotAvailableException("Customer", "mobileNumber", mobileNumber)
+        );
+        customerRepository.deleteById(customer.getCustomerId());
+        accountRepository.deleteByCustomerId(customer.getCustomerId());
+        isDeleted = true;
+        return isDeleted;
+    }
+
 
 }

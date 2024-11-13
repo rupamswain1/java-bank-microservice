@@ -41,7 +41,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/fetch?mobileNumber=1234567891",
+					"raw": "http://localhost:8080/api/fetch?mobileNumber=1234567892",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -54,7 +54,7 @@
 					"query": [
 						{
 							"key": "mobileNumber",
-							"value": "1234567891"
+							"value": "1234567892"
 						}
 					]
 				}
@@ -68,7 +68,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"testUpdated\",\n    \"email\": \"testUpdated@test.com\",\n    \"mobileNumber\": \"1234567891\",\n    \"accountDto\": {\n        \"accountNumber\": 1111235018,\n        \"accountType\": \"Current\",\n        \"branchAddress\": \"Airport Road\"\n    }\n}",
+					"raw": "{\n    \"name\": \"testUpdated2\",\n    \"email\": \"testUpdated2@test.com\",\n    \"mobileNumber\": \"1234567892\",\n    \"accountDto\": {\n        \"accountNumber\": 1111235018,\n        \"accountType\": \"Current2\",\n        \"branchAddress\": \"Airport Road2\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -85,6 +85,32 @@
 					"path": [
 						"api",
 						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/delete?mobileNumber=1234567892",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "mobileNumber",
+							"value": "1234567892"
+						}
 					]
 				}
 			},
