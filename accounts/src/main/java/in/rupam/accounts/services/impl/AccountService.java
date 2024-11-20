@@ -37,8 +37,6 @@ public class AccountService implements IAccountService {
         if (exsitingCustomer.isPresent()) {
             throw new CustomerAlreadyExistsException("Customer already exists with mobile number: " + customer.getMobileNumber());
         }
-        customer.setCreatedBy("RS");
-        customer.setCreatedAt(LocalDateTime.now());
         Customer newCustomer = customerRepository.save(customer);
         accountRepository.save(createNewAccount(newCustomer));
     }
@@ -49,9 +47,11 @@ public class AccountService implements IAccountService {
      */
     @Override
     public CustomerDto getCustomer(String mobileNumber) {
+        System.out.println(mobileNumber);
         Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
                 () -> new ResourceNotAvailableException("Customer", "mobileNumber", mobileNumber)
         );
+        System.out.println(customer.getCustomerId());
         Account account = accountRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(
                 () -> new ResourceNotAvailableException("Customer", "mobileNumber", mobileNumber)
         );
@@ -65,8 +65,6 @@ public class AccountService implements IAccountService {
         newAccount.setCustomerId(customer.getCustomerId());
         newAccount.setAccountType(AccountConstants.SAVINGS);
         newAccount.setBranchAddress(AccountConstants.ADDRESS);
-        newAccount.setUpdatedBy("Test");
-        newAccount.setUpdatedAt(LocalDateTime.now());
         long randomAccNumber = 1000000000L + new Random().nextInt(900000000);
         newAccount.setAccountNumber(randomAccNumber);
         return newAccount;
@@ -83,13 +81,9 @@ public class AccountService implements IAccountService {
                 () -> new ResourceNotAvailableException("Customer", "accountNumber", customerId)
         );
         account = AccountMapper.mapDtoToAccount(accountDto, new Account());
-        Customer updatedCustomer = CustomerMapper.mapDtoToCustomer(customerDto, new Customer());
-        updatedCustomer.setUpdatedBy("Test");
-        updatedCustomer.setUpdatedAt(LocalDateTime.now());
-        updatedCustomer.setCustomerId(customerId);
-        account.setUpdatedBy("Test");
-        account.setUpdatedAt(LocalDateTime.now());
         account.setCustomerId(customerId);
+        Customer updatedCustomer = CustomerMapper.mapDtoToCustomer(customerDto, new Customer());
+        updatedCustomer.setCustomerId(customerId);
         accountRepository.save(account);
         customerRepository.save(updatedCustomer);
         return true;
