@@ -1,4 +1,4 @@
-package com.rupa.loanApplication;
+package com.rupam.loanApplication;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

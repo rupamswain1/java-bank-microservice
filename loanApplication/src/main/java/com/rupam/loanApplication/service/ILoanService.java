@@ -1,8 +1,9 @@
-package com.rupa.loanApplication.service;
+package com.rupam.loanApplication.service;
 
-import com.rupa.loanApplication.dto.LoanDto;
+import com.rupam.loanApplication.dto.LoanDto;
 
 import java.util.List;
+
 
 public interface ILoanService {
     /**

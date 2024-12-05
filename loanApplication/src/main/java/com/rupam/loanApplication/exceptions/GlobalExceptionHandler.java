@@ -1,6 +1,6 @@
-package com.rupa.loanApplication.exceptions;
+package com.rupam.loanApplication.exceptions;
 
-import com.rupa.loanApplication.dto.ErrorMessageDto;
+import com.rupam.loanApplication.dto.ErrorMessageDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

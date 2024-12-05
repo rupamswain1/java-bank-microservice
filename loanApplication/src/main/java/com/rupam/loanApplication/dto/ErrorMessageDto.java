@@ -1,4 +1,4 @@
-package com.rupa.loanApplication.dto;
+package com.rupam.loanApplication.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

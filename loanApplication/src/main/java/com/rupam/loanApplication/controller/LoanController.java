@@ -1,12 +1,15 @@
-package com.rupa.loanApplication.controller;
+package com.rupam.loanApplication.controller;
 
-import com.rupa.loanApplication.dto.LoanDto;
-import com.rupa.loanApplication.dto.ResponseDto;
+import com.rupam.loanApplication.dto.LoanDto;
+import com.rupam.loanApplication.dto.ResponseDto;
+import com.rupam.loanApplication.service.impl.LoanService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -16,9 +19,11 @@ import org.springframework.web.bind.annotation.*;
         description = "This is loan service for my bank"
 )
 public class LoanController {
+    LoanService loanService;
     @GetMapping("/getCustomerLoans")
-    public String getCustomerLoans(@RequestParam String mobileNumber){
-        return "Hekko";
+    public ResponseEntity<List<LoanDto>> getCustomerLoans(@RequestParam String mobileNumber){
+        List<LoanDto> loanDtos = loanService.getCustomerLoan(mobileNumber);
+        return ResponseEntity.status(HttpStatus.OK).body(loanDtos);
     };
 
     @GetMapping("/getLoan")
@@ -28,6 +33,7 @@ public class LoanController {
 
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createLoan(@RequestBody LoanDto loanDto){
+        loanService.CreateLoan(loanDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 new ResponseDto(HttpStatus.CREATED, "Loan Created")
         );
