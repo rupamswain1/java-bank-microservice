@@ -8,6 +8,7 @@ import com.rupam.loanApplication.repository.LoanRepository;
 import com.rupam.loanApplication.service.ILoanService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -17,6 +18,7 @@ import java.util.Random;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class LoanService implements ILoanService {
     LoanRepository loanRepository;
     /**
@@ -60,11 +62,14 @@ public class LoanService implements ILoanService {
     /**
      * Return loan details by Id
      *
-     * @param loanId
+     * @param loanId id of loan
      */
     @Override
     public LoanDto getLoan(Long loanId) {
-        return null;
+        Loan loan = loanRepository.findById(loanId).orElseThrow(
+                ()->new ResourceNotAvailableException("Loan", "loanId", loanId)
+        );
+        return LoanMapper.loanToLoanDto(loan, new LoanDto());
     }
 
     /**
@@ -74,7 +79,10 @@ public class LoanService implements ILoanService {
      */
     @Override
     public void deleteLoan(Long loanId) {
-
+        Loan loan = loanRepository.findById(loanId).orElseThrow(
+                ()->new ResourceNotAvailableException("Loan", "loanId", loanId)
+        );
+        loanRepository.deleteById(loanId);
     }
 
     /**
@@ -83,7 +91,13 @@ public class LoanService implements ILoanService {
      * @param mobileNumber mobile number of the customer
      */
     @Override
-    public void closeCustomerAccount(String mobileNumber) {
-
+    public int closeCustomerAccount(String mobileNumber) {
+        List<Loan> loans = loanRepository.findByCustomerMobileNumber(mobileNumber).orElseThrow(
+                ()->new ResourceNotAvailableException("Customer", "mobileNumber",mobileNumber)
+        );
+        if(!loans.isEmpty()){
+            return loanRepository.removeByCustomerMobileNumber(mobileNumber);
+        }
+        throw new ResourceNotAvailableException("Customer", "mobileNumber",mobileNumber);
     }
 }

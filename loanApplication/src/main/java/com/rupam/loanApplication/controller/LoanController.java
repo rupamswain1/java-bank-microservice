@@ -27,8 +27,8 @@ public class LoanController {
     };
 
     @GetMapping("/getLoan")
-    public String getLoan(@RequestParam Long loanId){
-        return "Hekko";
+    public ResponseEntity<LoanDto> getLoan(@RequestParam Long loanId){
+        return ResponseEntity.status(HttpStatus.OK).body(loanService.getLoan(loanId));
     };
 
     @PostMapping("/create")
@@ -41,8 +41,16 @@ public class LoanController {
 
     @DeleteMapping("/deleteLoan")
     public ResponseEntity<ResponseDto> deleteLoan(@RequestParam Long loanId){
+        loanService.deleteLoan(loanId);
         return ResponseEntity.status(HttpStatus.CREATED).body(
-                new ResponseDto(HttpStatus.CREATED, "Loan Created")
+                new ResponseDto(HttpStatus.CREATED, "Loan Deleted")
+        );
+    }
+    @DeleteMapping("/deleteCustomer")
+    public ResponseEntity<ResponseDto> deleteCustomer(@RequestParam String mobileNumber){
+        loanService.closeCustomerAccount(mobileNumber);
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseDto(HttpStatus.CREATED, "Success")
         );
     }
 

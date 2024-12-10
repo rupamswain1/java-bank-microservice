@@ -8,4 +8,7 @@ public class ResourceNotAvailableException extends RuntimeException{
  public ResourceNotAvailableException(String resourceName, String fieldName, String mobileNumber){
      super(String.format("%s not found with fieldName %s having customerMobileNumber %s",resourceName, fieldName,mobileNumber));
  }
+public ResourceNotAvailableException(String resourceName, String fieldName, Long loanId){
+    super(String.format("%s not found with fieldName %s as %s",resourceName, fieldName,loanId));
+}
 }

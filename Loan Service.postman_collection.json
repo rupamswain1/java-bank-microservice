@@ -1,0 +1,143 @@
+{
+	"info": {
+		"_postman_id": "8edc6bca-8fe4-47fe-b105-e15bec255542",
+		"name": "Loan Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7157477"
+	},
+	"item": [
+		{
+			"name": "Create Loan",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customerMobileNumber\":\"1234567890\",\n    \"amount\":\"1000000\",\n    \"interestRate\":9.5,\n    \"durationInMonths\":100,\n    \"loanType\":\"Home Loan\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get customer loans",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/getCustomerLoans?mobileNumber=1234567890",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"getCustomerLoans"
+					],
+					"query": [
+						{
+							"key": "mobileNumber",
+							"value": "1234567890"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Loan by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/getLoan?loanId=3475418362",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"getLoan"
+					],
+					"query": [
+						{
+							"key": "loanId",
+							"value": "3475418362"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete by loanId",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/deleteLoan?loanId=9541438110",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"deleteLoan"
+					],
+					"query": [
+						{
+							"key": "loanId",
+							"value": "9541438110"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Customer loan by loanId",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/deleteCustomer?mobileNumber=1234567890",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"deleteCustomer"
+					],
+					"query": [
+						{
+							"key": "mobileNumber",
+							"value": "1234567890"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

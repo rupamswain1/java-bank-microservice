@@ -34,5 +34,5 @@ public interface ILoanService {
      * Deletes all the loan for a customer
      * @param mobileNumber mobile number of the customer
      */
-    void closeCustomerAccount (String mobileNumber);
+    int closeCustomerAccount (String mobileNumber);
 }

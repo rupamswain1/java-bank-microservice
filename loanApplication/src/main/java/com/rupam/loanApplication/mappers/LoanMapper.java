@@ -15,6 +15,7 @@ public class LoanMapper {
     }
 
     public static LoanDto loanToLoanDto(Loan loan, LoanDto loanDto){
+        loanDto.setLoanId(loan.getLoanId());
         loanDto.setCustomerMobileNumber(loan.getCustomerMobileNumber());
         loanDto.setAmount(loan.getAmount());
         loanDto.setInterestRate(loan.getInterestRate());

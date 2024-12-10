@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class LoanDto {
+    private Long loanId;
     private String customerMobileNumber;
     private Double amount;
     private float interestRate;
