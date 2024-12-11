@@ -8,7 +8,6 @@ public class LoanMapper {
         loan.setLoanType(loanDto.getLoanType());
         loan.setAmount(loanDto.getAmount());
         loan.setInterestRate(loanDto.getInterestRate());
-        loan.setAmount(loanDto.getAmount());
         loan.setCustomerMobileNumber(loanDto.getCustomerMobileNumber());
         loan.setDurationInMonths(loanDto.getDurationInMonths());
         return loan;
@@ -28,4 +27,5 @@ public class LoanMapper {
         return loanDto;
 
     }
+
 }

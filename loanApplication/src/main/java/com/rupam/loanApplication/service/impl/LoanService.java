@@ -1,6 +1,7 @@
 package com.rupam.loanApplication.service.impl;
 
 import com.rupam.loanApplication.dto.LoanDto;
+import com.rupam.loanApplication.dto.LoanUpdateDto;
 import com.rupam.loanApplication.exceptions.ResourceNotAvailableException;
 import com.rupam.loanApplication.mappers.LoanMapper;
 import com.rupam.loanApplication.model.Loan;
@@ -99,5 +100,28 @@ public class LoanService implements ILoanService {
             return loanRepository.removeByCustomerMobileNumber(mobileNumber);
         }
         throw new ResourceNotAvailableException("Customer", "mobileNumber",mobileNumber);
+    }
+
+    /**
+     * Updates loan
+     *
+     * @param loanUpdateDto
+     */
+    @Override
+    public void updateLoan(LoanUpdateDto loanUpdateDto) {
+        Loan loan = loanRepository.findById(loanUpdateDto.getLoanId()).orElseThrow(
+                ()->new ResourceNotAvailableException("Loan", "loanId", loanUpdateDto.getLoanId())
+        );
+        loan.setCustomerMobileNumber(loanUpdateDto.getCustomerMobileNumber());
+        loan.setAmount(loanUpdateDto.getAmount());
+        loan.setInterestRate(loanUpdateDto.getInterestRate());
+        loan.setDurationInMonths(loanUpdateDto.getDurationInMonths());
+        double monthlyInterest = loan.getInterestRate()/12/100;
+        double emi = loan.getAmount()*monthlyInterest*Math.pow(1+monthlyInterest,loan.getDurationInMonths()) / (Math.pow(1 + monthlyInterest, loan.getDurationInMonths()) - 1);
+        double totalAmountPayble = emi*loan.getDurationInMonths();
+        loan.setEmi(emi);
+        loan.setNextPaymentDate(LocalDateTime.now().with(Month.of(LocalDateTime.now().getMonthValue()%12+1)));
+        loan.setRemainingBalance(totalAmountPayble);
+        loanRepository.save(loan);
     }
 }

@@ -1,6 +1,7 @@
 package com.rupam.loanApplication.service;
 
 import com.rupam.loanApplication.dto.LoanDto;
+import com.rupam.loanApplication.dto.LoanUpdateDto;
 
 import java.util.List;
 
@@ -35,4 +36,11 @@ public interface ILoanService {
      * @param mobileNumber mobile number of the customer
      */
     int closeCustomerAccount (String mobileNumber);
+
+    /**
+     * Updates loan
+     *
+     * @param loanUpdateDto
+     */
+    void updateLoan(LoanUpdateDto loanUpdateDto);
 }

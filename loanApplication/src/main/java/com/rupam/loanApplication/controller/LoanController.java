@@ -1,12 +1,17 @@
 package com.rupam.loanApplication.controller;
 
+import com.rupam.loanApplication.constants.Messages;
 import com.rupam.loanApplication.dto.LoanDto;
+import com.rupam.loanApplication.dto.LoanUpdateDto;
 import com.rupam.loanApplication.dto.ResponseDto;
 import com.rupam.loanApplication.service.impl.LoanService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,36 +23,59 @@ import java.util.List;
         name="Loan Service for my bank",
         description = "This is loan service for my bank"
 )
+@Validated
 public class LoanController {
     LoanService loanService;
     @GetMapping("/getCustomerLoans")
-    public ResponseEntity<List<LoanDto>> getCustomerLoans(@RequestParam String mobileNumber){
+    public ResponseEntity<List<LoanDto>> getCustomerLoans(@RequestParam
+                                                                @NotEmpty(message = Messages.CUSTOMER_MOBILE_REQUIRED)
+                                                              @Pattern(regexp = "(^$|[0-9]{10})", message = Messages.TEN_DIGIT_LENGTH)
+                                                              String mobileNumber){
         List<LoanDto> loanDtos = loanService.getCustomerLoan(mobileNumber);
         return ResponseEntity.status(HttpStatus.OK).body(loanDtos);
     };
 
     @GetMapping("/getLoan")
-    public ResponseEntity<LoanDto> getLoan(@RequestParam Long loanId){
+    public ResponseEntity<LoanDto> getLoan(@RequestParam
+                                                @NotNull(message = "loanId is required")
+                                               @Min(value = 1000000000L, message = "loanId should be of min 10 digits")
+                                               @Max(value = 9999999999L, message = "loanId should be of max 10 digits")
+                                               Long loanId){
         return ResponseEntity.status(HttpStatus.OK).body(loanService.getLoan(loanId));
     };
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseDto> createLoan(@RequestBody LoanDto loanDto){
+    public ResponseEntity<ResponseDto> createLoan(@Valid @RequestBody LoanDto loanDto){
         loanService.CreateLoan(loanDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 new ResponseDto(HttpStatus.CREATED, "Loan Created")
         );
     }
 
+    @PutMapping("/updateLoan")
+    public ResponseEntity<ResponseDto> updateLoan(@Valid @RequestBody LoanUpdateDto loanUpdateDto){
+        loanService.updateLoan(loanUpdateDto);
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseDto(HttpStatus.CREATED, "Loan Updated")
+        );
+    }
+
     @DeleteMapping("/deleteLoan")
-    public ResponseEntity<ResponseDto> deleteLoan(@RequestParam Long loanId){
+    public ResponseEntity<ResponseDto> deleteLoan(@RequestParam
+                                                        @NotNull(message = "loanId is required")
+                                                      @Min(value = 1000000000L, message = "loanId should be of min 10 digits")
+                                                      @Max(value = 9999999999L, message = "loanId should be of max 10 digits")
+                                                      Long loanId){
         loanService.deleteLoan(loanId);
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 new ResponseDto(HttpStatus.CREATED, "Loan Deleted")
         );
     }
     @DeleteMapping("/deleteCustomer")
-    public ResponseEntity<ResponseDto> deleteCustomer(@RequestParam String mobileNumber){
+    public ResponseEntity<ResponseDto> deleteCustomer(@RequestParam
+    @NotEmpty
+                                                          @Pattern(regexp = "(^$|[0-9]{10})", message = Messages.TEN_DIGIT_LENGTH)
+                                                          String mobileNumber){
         loanService.closeCustomerAccount(mobileNumber);
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseDto(HttpStatus.CREATED, "Success")
