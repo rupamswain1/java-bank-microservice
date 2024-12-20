@@ -1,15 +1,27 @@
 package in.rupam.creditCard.controller;
 
-import org.springframework.stereotype.Controller;
+import in.rupam.creditCard.constants.CreditCardConstants;
+import in.rupam.creditCard.dto.CreateCreditCardDto;
+import in.rupam.creditCard.dto.ResponseDto;
+import in.rupam.creditCard.service.impl.CreditCardService;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@Getter
+@Setter
 public class CreditCardController {
-
+    CreditCardService creditCardService;
     @PostMapping("/addCard")
-    public void addCard(){
-
+    public ResponseEntity<ResponseDto> addCard(@RequestBody CreateCreditCardDto createCreditCardDto){
+        creditCardService.createCreditCard(createCreditCardDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                new ResponseDto(CreditCardConstants.SUCCESS, HttpStatus.CREATED)
+        );
     }
 
     @GetMapping("/getCustomerCards")
