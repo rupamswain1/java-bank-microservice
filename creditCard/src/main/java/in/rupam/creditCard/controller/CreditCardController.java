@@ -6,7 +6,9 @@ import in.rupam.creditCard.dto.ResponseDto;
 import in.rupam.creditCard.service.impl.CreditCardService;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +17,9 @@ import org.springframework.web.bind.annotation.*;
 @Getter
 @Setter
 public class CreditCardController {
+    @Autowired
     CreditCardService creditCardService;
-    @PostMapping("/addCard")
+    @PostMapping(value = "/addCard",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto> addCard(@RequestBody CreateCreditCardDto createCreditCardDto){
         creditCardService.createCreditCard(createCreditCardDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(

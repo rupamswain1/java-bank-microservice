@@ -9,6 +9,7 @@ import in.rupam.creditCard.service.ICreditCardService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import java.util.Random;
 @Setter
 @NoArgsConstructor
 public class CreditCardService implements ICreditCardService {
+    @Autowired
     CreditCardRepo creditCardRepo;
     /**
      * Create a credit card for a customer
