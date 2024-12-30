@@ -2,7 +2,10 @@ package in.rupam.creditCard.service.impl;
 
 import in.rupam.creditCard.constants.CreditCardConstants;
 import in.rupam.creditCard.dto.CreateCreditCardDto;
+import in.rupam.creditCard.dto.CreditCardResponseDto;
 import in.rupam.creditCard.dto.ResponseDto;
+import in.rupam.creditCard.exceptions.NotFoundException;
+import in.rupam.creditCard.mapper.CreditCardMapper;
 import in.rupam.creditCard.models.CreditCard;
 import in.rupam.creditCard.repository.CreditCardRepo;
 import in.rupam.creditCard.service.ICreditCardService;
@@ -15,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -49,4 +54,32 @@ public class CreditCardService implements ICreditCardService {
         creditCardRepo.save(creditCard);
 
     }
+
+    /**
+     * @param cardNumber credit card number
+     * @return credit card details
+     */
+    @Override
+    public CreditCardResponseDto gerCard(Long cardNumber) {
+       CreditCard creditCard = creditCardRepo.findById(cardNumber).orElseThrow(()->new NotFoundException(
+               "creditCardNumber", cardNumber
+        ));
+        return CreditCardMapper.creditCardToCreditCardResponseDto(creditCard,new CreditCardResponseDto());
+    }
+
+    /**
+     * @param customerMobileNumber
+     * @return List of Credit cards
+     */
+    @Override
+    public List<CreditCardResponseDto> getCustomerCards(String customerMobileNumber) {
+       List<CreditCard> creditCards = creditCardRepo.findByCustomerMobileNumber(customerMobileNumber);
+       List<CreditCardResponseDto> creditCardResponses = new ArrayList<>();
+       for(CreditCard card:creditCards){
+           creditCardResponses.add(CreditCardMapper.creditCardToCreditCardResponseDto(card, new CreditCardResponseDto()));
+       }
+       return creditCardResponses;
+    }
+
+
 }
