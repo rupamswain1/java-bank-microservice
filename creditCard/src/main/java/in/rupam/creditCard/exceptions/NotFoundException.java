@@ -18,10 +18,10 @@ public class NotFoundException extends RuntimeException {
         super("Field with Name "+ fieldName+" with value "+fieldValue+" is not available");
         this.fieldName = fieldName;
         this.fieldValue = fieldValue;
-
-
     }
-
+    public NotFoundException(String fieldName, String fieldValue) {
+        super("Field with Name "+ fieldName+" with value "+fieldValue+" is not available");
+    }
     public String getFieldName() {
         return fieldName;
     }

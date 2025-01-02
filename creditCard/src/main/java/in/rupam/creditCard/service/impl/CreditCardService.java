@@ -4,6 +4,8 @@ import in.rupam.creditCard.constants.CreditCardConstants;
 import in.rupam.creditCard.dto.CreateCreditCardDto;
 import in.rupam.creditCard.dto.CreditCardResponseDto;
 import in.rupam.creditCard.dto.ResponseDto;
+import in.rupam.creditCard.dto.UpdatePaymentDto;
+import in.rupam.creditCard.exceptions.CardValidationFailedException;
 import in.rupam.creditCard.exceptions.NotFoundException;
 import in.rupam.creditCard.mapper.CreditCardMapper;
 import in.rupam.creditCard.models.CreditCard;
@@ -17,7 +19,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -79,6 +84,67 @@ public class CreditCardService implements ICreditCardService {
            creditCardResponses.add(CreditCardMapper.creditCardToCreditCardResponseDto(card, new CreditCardResponseDto()));
        }
        return creditCardResponses;
+    }
+
+    /**
+     * update card payment
+     *
+     * @param updatePaymentDto accepts the payment details
+     */
+    @Override
+    public void updatePayment(UpdatePaymentDto updatePaymentDto) {
+        CreditCard card = creditCardRepo.findById(updatePaymentDto.getCardNumber()).orElseThrow(()->new NotFoundException(
+                "creditCardNumber", updatePaymentDto.getCardNumber()
+        ));
+        List<String> errorFields = new ArrayList<>();
+        if(card.getCvv()!=updatePaymentDto.getCvv()){
+            errorFields.add("cvv");
+        }
+        if(card.getPin()!=updatePaymentDto.getPin()){
+            errorFields.add("pin");
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
+        YearMonth inputYearMonth = YearMonth.parse(updatePaymentDto.getExpiry(), formatter);
+        YearMonth dateYearMonth = YearMonth.of(card.getValidTill().getYear(), card.getValidTill().getMonth());
+        if (!inputYearMonth.equals(dateYearMonth)) {
+            errorFields.add("expiry");
+        }
+        if(!errorFields.isEmpty()){
+            throw new CardValidationFailedException(errorFields);
+        }
+
+        card.setCurrentMonthDue(card.getCurrentMonthDue()+updatePaymentDto.getAmount());
+        card.setCurrentAvailableLimit(card.getCurrentAvailableLimit()-updatePaymentDto.getAmount());
+        creditCardRepo.save(card);
+    }
+
+    /**
+     * Delete the given card number
+     *
+     * @param cardNumber
+     */
+    @Override
+    public void deleteCard(Long cardNumber) {
+        CreditCard card = creditCardRepo.findById(cardNumber).orElseThrow(()->new NotFoundException(
+                "creditCardNumber", cardNumber
+        ));
+        creditCardRepo.delete(card);
+    }
+
+    /**
+     * Deletes all the credit cards associated with a customer mobile number
+     *
+     * @param customerMobileNumber mobile number of customer
+     * @return number of deleted records
+     */
+    @Override
+    public int deleteByCustomerMobileNumber(String customerMobileNumber) {
+        List<CreditCard> creditCards = creditCardRepo.findByCustomerMobileNumber(customerMobileNumber);
+        if(creditCards.isEmpty()){
+            throw new NotFoundException("customerMobileNumber", customerMobileNumber);
+        }
+        return creditCardRepo.deleteByCustomerMobileNUmber(customerMobileNumber);
+
     }
 
 

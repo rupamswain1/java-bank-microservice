@@ -5,5 +5,174 @@
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "7157477"
 	},
-	"item": []
+	"item": [
+		{
+			"name": "Create card",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customerMobileNumber\":\"1234567890\",\n    \"cardType\":\"Amazon Pay\",\n    \"network\":\"Visa\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/addCard",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"addCard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get credit card by cardNumber",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/api/getCard?cardNumber=1679231281415820",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"getCard"
+					],
+					"query": [
+						{
+							"key": "cardNumber",
+							"value": "1679231281415820"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get customer cards",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/api/getCustomerCards?customerMobileNumber=1234567890",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"getCustomerCards"
+					],
+					"query": [
+						{
+							"key": "customerMobileNumber",
+							"value": "1234567890"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updatePayment",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cardNumber\":167923128141582,\n    \"cvv\":634,\n    \"expiry\":\"12/29\",\n    \"pin\":5449,\n    \"amount\":200\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/updatePayment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"updatePayment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Card",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/api/deleteCard?cardNumber=1883824038163909",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"deleteCard"
+					],
+					"query": [
+						{
+							"key": "cardNumber",
+							"value": "1883824038163909"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete by customer mobile number",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/api/deleteCustomer?customerMobileNumber=1234567891",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"deleteCustomer"
+					],
+					"query": [
+						{
+							"key": "customerMobileNumber",
+							"value": "1234567891"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
 }

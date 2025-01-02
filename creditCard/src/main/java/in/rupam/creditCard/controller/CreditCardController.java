@@ -4,6 +4,7 @@ import in.rupam.creditCard.constants.CreditCardConstants;
 import in.rupam.creditCard.dto.CreateCreditCardDto;
 import in.rupam.creditCard.dto.CreditCardResponseDto;
 import in.rupam.creditCard.dto.ResponseDto;
+import in.rupam.creditCard.dto.UpdatePaymentDto;
 import in.rupam.creditCard.service.impl.CreditCardService;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,23 +41,27 @@ public class CreditCardController {
         return creditCardService.gerCard(cardNumber);
     }
 
-    @PutMapping("/updateDue")
-    public void updateDueAmount(){
-
-    }
-
-    @PutMapping("/updateCardDetails")
-    public void updateCardDetails(){
-
+    @PutMapping("/updatePayment")
+    public ResponseEntity<ResponseDto> updatePayment(@RequestBody UpdatePaymentDto updatePaymentDto){
+        creditCardService.updatePayment(updatePaymentDto);
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseDto(CreditCardConstants.SUCCESS, HttpStatus.OK)
+        );
     }
 
     @DeleteMapping("/deleteCard")
-    public void deleteCard(){
-
+    public ResponseEntity<ResponseDto>  deleteCard(@RequestParam Long cardNumber){
+        creditCardService.deleteCard(cardNumber);
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseDto(CreditCardConstants.DELETED, HttpStatus.OK)
+        );
     }
     @DeleteMapping("/deleteCustomer")
-    public void deleteCustomer(){
-
+    public ResponseEntity<ResponseDto> deleteCustomer(@RequestParam String customerMobileNumber){
+        int deletedRecords = creditCardService.deleteByCustomerMobileNumber(customerMobileNumber);
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseDto(deletedRecords+" "+CreditCardConstants.DELETED, HttpStatus.OK)
+        );
     }
 
 }
