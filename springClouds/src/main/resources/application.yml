@@ -1,0 +1,11 @@
+server:
+  port: 8071
+
+spring:
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/config/, file:///F:/Development/java\java-bank-microservice\springClouds/config-files

@@ -15,23 +15,34 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/api")
-@AllArgsConstructor
 @Tag(
         name="Loan Service for my bank",
         description = "This is loan service for my bank"
 )
 @Validated
 public class LoanController {
+
+    @Value("${build.version}")
+    private String buildVersion;
+
+    @Value(("${loans.message}"))
+    private String message;
+
+    @Autowired
     LoanService loanService;
+
     @GetMapping("/getCustomerLoans")
     @Operation(
             summary = "Get customer loan",
@@ -184,6 +195,14 @@ public class LoanController {
         loanService.closeCustomerAccount(mobileNumber);
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseDto(HttpStatus.CREATED, "Success")
+        );
+    }
+
+    @GetMapping("/build-info")
+    public Map<String, Object> getBuildInfo(){
+        return Map.of(
+                "version", buildVersion,
+                "message", message
         );
     }
 

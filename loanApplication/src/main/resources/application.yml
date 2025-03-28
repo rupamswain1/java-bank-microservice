@@ -1,0 +1,24 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: "loans"
+  profiles:
+    active: "prod"
+  datasource:
+    url:
+    username:
+    password: 
+  jpa:
+    hibernate:
+      ddl-auto: "update"
+    show-sql: "true"
+  hikari:
+    maximum-pool-size: 5
+    minimum-idle: 2
+    idle-timeout: 30000
+    data-source-properties:
+      cachePrepStmts: "false"
+  config:
+    import: "optional:configserver:http://localhost:8071"

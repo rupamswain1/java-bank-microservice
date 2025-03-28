@@ -14,15 +14,19 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+import java.lang.String;
+
 @RestController
 @RequestMapping(path = "/api", produces = (MediaType.APPLICATION_JSON_VALUE))
-@AllArgsConstructor
 @Validated
 @Tag(
         name = "CRUD Rest APIs for Account in My Bank",
@@ -30,7 +34,15 @@ import org.springframework.web.bind.annotation.*;
 )
 public class AccountsController {
 
+    @Value("${accounts.message}")
+    private String message;
+
+    @Value("${build.version}")
+    private String buildVersion;
+
+    @Autowired
     AccountService accountService;
+
 
     @Operation(
             summary = "Create new Customer and Account",
@@ -148,5 +160,13 @@ public class AccountsController {
                     .status(HttpStatus.BAD_REQUEST)
                     .body(new ResponseDto(AccountConstants.STATUS_500, AccountConstants.MESSAGE_500));
         }
+    }
+
+    @GetMapping("/build-info")
+    public Map<String, Object> getBuildInfo() {
+        return Map.of(
+                "version", buildVersion,
+                "message", message
+        );
     }
 }

@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: "accounts"
+  profiles:
+    active: "qa"
+  datasource:
+    url:
+    username:
+    password:
+    hikari:
+      maximum-pool-size: "5"
+      maximum-idle: "2"
+      idle-timeout: "30000"
+      data-source-properties:
+        cachePrepStmts: "false"
+  jpa:
+    hibernate:
+      ddl-auto: "update"
+    show-sql: "true"
+  config:
+    import: "optional:configserver:http://localhost:8071"
