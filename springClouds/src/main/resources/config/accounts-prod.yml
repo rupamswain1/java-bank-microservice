@@ -3,4 +3,4 @@ build:
 
 accounts:
   message: "accounts prod config"
-  email: {cipher}8728aef6c631db67f44e0499d41c4bb0eed75d7375d5d25d957d8f28aa4564d499d21c23e8dc177312e306df3d15ad06
+  email: "{cipher}8728aef6c631db67f44e0499d41c4bb0eed75d7375d5d25d957d8f28aa4564d499d21c23e8dc177312e306df3d15ad06"
