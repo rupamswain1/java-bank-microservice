@@ -94,6 +94,26 @@
 			"response": []
 		},
 		{
+			"name": "refresh Configs",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/actuator/refresh",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"actuator",
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "updatePayment",
 			"request": {
 				"method": "PUT",
@@ -117,6 +137,29 @@
 					"path": [
 						"api",
 						"updatePayment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "build information",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/api/build-info",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"build-info"
 					]
 				}
 			},

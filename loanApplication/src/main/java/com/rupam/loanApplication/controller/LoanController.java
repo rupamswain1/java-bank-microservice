@@ -1,10 +1,7 @@
 package com.rupam.loanApplication.controller;
 
 import com.rupam.loanApplication.constants.Messages;
-import com.rupam.loanApplication.dto.ErrorMessageDto;
-import com.rupam.loanApplication.dto.LoanDto;
-import com.rupam.loanApplication.dto.LoanUpdateDto;
-import com.rupam.loanApplication.dto.ResponseDto;
+import com.rupam.loanApplication.dto.*;
 import com.rupam.loanApplication.service.impl.LoanService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -14,7 +11,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -37,8 +33,8 @@ public class LoanController {
     @Value("${build.version}")
     private String buildVersion;
 
-    @Value(("${loans.message}"))
-    private String message;
+    @Autowired
+    LoanConfigDto loanConfigDto;
 
     @Autowired
     LoanService loanService;
@@ -202,7 +198,7 @@ public class LoanController {
     public Map<String, Object> getBuildInfo(){
         return Map.of(
                 "version", buildVersion,
-                "message", message
+                "message", loanConfigDto
         );
     }
 

@@ -1,5 +1,6 @@
 build:
   version: "2.0"
 
-creditCards:
+credit-cards:
   message: "credit cards prod config"
+  email: "cards-prod@cards.com"

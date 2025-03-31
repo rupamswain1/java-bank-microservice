@@ -1,0 +1,61 @@
+{
+	"info": {
+		"_postman_id": "5da3254a-5e70-4ffe-94fb-b07db4a4cb12",
+		"name": "spring cloud",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7157477"
+	},
+	"item": [
+		{
+			"name": "Get Account profile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8071/accounts/qa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8071",
+					"path": [
+						"accounts",
+						"qa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8071/encrypt",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "accounts-default@spring.com",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8071/encrypt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8071",
+					"path": [
+						"encrypt"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

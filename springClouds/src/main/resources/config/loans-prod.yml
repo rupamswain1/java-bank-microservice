@@ -3,3 +3,4 @@ build:
 
 loans:
   message: "loans prod config"
+  email: "loans-prod@loans.com"

@@ -1,5 +1,6 @@
 build:
   version: "1.0"
 
-creditCards:
+credit-cards:
   message: "creditCards default config"
+  email: "cards-default@cards.com"

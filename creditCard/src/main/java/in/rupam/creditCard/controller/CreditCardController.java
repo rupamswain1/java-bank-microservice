@@ -1,10 +1,7 @@
 package in.rupam.creditCard.controller;
 
 import in.rupam.creditCard.constants.CreditCardConstants;
-import in.rupam.creditCard.dto.CreateCreditCardDto;
-import in.rupam.creditCard.dto.CreditCardResponseDto;
-import in.rupam.creditCard.dto.ResponseDto;
-import in.rupam.creditCard.dto.UpdatePaymentDto;
+import in.rupam.creditCard.dto.*;
 import in.rupam.creditCard.service.impl.CreditCardService;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,8 +26,8 @@ public class CreditCardController {
     @Value("${build.version}")
     private String buildVersion;
 
-    @Value("${creditCards.message}")
-    private String message;
+    @Autowired
+    CreditCardsConfigDto creditCardsConfigDto;
 
     @PostMapping(value = "/addCard",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto> addCard(@RequestBody CreateCreditCardDto createCreditCardDto){
@@ -75,7 +72,7 @@ public class CreditCardController {
 
     @GetMapping("/build-info")
     public Map<String, Object> getBuildInfo(){
-        return Map.of("build version",buildVersion,message,message);
+        return Map.of("build version",buildVersion,"config",creditCardsConfigDto);
     }
 
 }

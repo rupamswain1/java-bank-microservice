@@ -1,5 +1,6 @@
 build:
   version: "3.0"
 
-creditCards:
+credit-cards:
   message: "account qa config"
+  email: "cards-qa@cards.com"

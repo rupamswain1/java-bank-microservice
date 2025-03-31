@@ -115,6 +115,52 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "build information",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/build-info",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"build-info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "refresh configs",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/actuator/refresh",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator",
+						"refresh"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

@@ -3,3 +3,4 @@ build:
 
 loans:
   message: "loans default config"
+  email: "loans-default@loans.com"

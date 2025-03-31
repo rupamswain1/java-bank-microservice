@@ -3,3 +3,4 @@ build:
 
 loans:
   message: "loans qa config"
+  email: "loans-qa@loans.com"
