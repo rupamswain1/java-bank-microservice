@@ -2,5 +2,5 @@ build:
   version: "3.0"
 
 credit-cards:
-  message: "account qa config"
+  message: "account qa config update"
   email: "cards-qa@cards.com"
