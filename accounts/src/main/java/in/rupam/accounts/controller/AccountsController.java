@@ -1,6 +1,7 @@
 package in.rupam.accounts.controller;
 
 import in.rupam.accounts.constants.AccountConstants;
+import in.rupam.accounts.dto.AccountConfigDto;
 import in.rupam.accounts.dto.CustomerDto;
 import in.rupam.accounts.dto.ErrorMessageDto;
 import in.rupam.accounts.dto.ResponseDto;
@@ -34,15 +35,14 @@ import java.lang.String;
 )
 public class AccountsController {
 
-    @Value("${accounts.message}")
-    private String message;
-
     @Value("${build.version}")
     private String buildVersion;
 
     @Autowired
     AccountService accountService;
 
+    @Autowired
+    AccountConfigDto accountConfigDto;
 
     @Operation(
             summary = "Create new Customer and Account",
@@ -166,7 +166,7 @@ public class AccountsController {
     public Map<String, Object> getBuildInfo() {
         return Map.of(
                 "version", buildVersion,
-                "message", message
+                "accounts", accountConfigDto
         );
     }
 }
