@@ -2,5 +2,5 @@ build:
   version: "3.0"
 
 accounts:
-  message: "account qa config changed"
+  message: "account qa config"
   email: "{cipher}ad9a843ee84a0a45a4f5228576ced76201fade2431637990bc07008abacf8d6b82456192f9cd3cf7c0f6c07c4040c6a1"
