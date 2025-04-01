@@ -7,9 +7,9 @@ spring:
   profiles:
     active: "qa"
   datasource:
-    url:
-    username:
-    password:
+    url: "jdbc:postgresql://aws-0-ap-south-1.pooler.supabase.com:6543/postgres?user=postgres.glrzfqcaggzwfnscvitg&password=J@nu@rryRup@m"
+    username: "postgres.glrzfqcaggzwfnscvitgp"
+    password: "J@nu@rryRup@m"
     hikari:
       maximum-pool-size: 5
       minimum-idle: 2

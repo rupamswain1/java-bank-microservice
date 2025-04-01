@@ -7,9 +7,9 @@ spring:
   profiles:
     active: "prod"
   datasource:
-    url:
-    username:
-    password:
+    url: "jdbc:postgresql://aws-0-ap-south-1.pooler.supabase.com:6543/postgres?user=postgres.glrzfqcaggzwfnscvitg&password=J@nu@rryRup@m"
+    username: "postgres.glrzfqcaggzwfnscvitg"
+    password: "J@nu@rryRup@m"
   jpa:
     hibernate:
       ddl-auto: "update"
