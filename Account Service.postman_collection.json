@@ -161,6 +161,28 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Rabbit Mq bus refrest",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/actuator/busrefresh",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator",
+						"busrefresh"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

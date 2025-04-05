@@ -112,6 +112,22 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.4.1</version>
+                <configuration>
+                    <from>
+                        <image>eclipse-temurin:21-jdk</image>
+                    </from>
+                    <to>
+                        <image>rupam/${project.artifactId}:v1</image>
+                    </to>
+                    <container>
+                        <mainClass>in.rupam.accounts.AccountsApplication</mainClass>
+                    </container>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

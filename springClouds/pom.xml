@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>in.rupam</groupId>
-	<artifactId>springClouds</artifactId>
+	<artifactId>configserver</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springClouds</name>
+	<name>configserver</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -63,6 +63,22 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.4.1</version>
+				<configuration>
+					<from>
+						<image>eclipse-temurin:21-jdk</image>
+					</from>
+					<to>
+						<image>rupam/${project.artifactId}:v1</image>
+					</to>
+					<container>
+						<mainClass>in.rupam.springClouds.SpringCloudsApplication</mainClass>
+					</container>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
