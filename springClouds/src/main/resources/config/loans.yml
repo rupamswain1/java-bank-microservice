@@ -1,6 +1,10 @@
 build:
   version: "1.0"
-
+spring:
+  datasource:
+    url: ""
+    username: ""
+    password: ""
 loans:
   message: "loans default config"
   email: "loans-default@loans.com"

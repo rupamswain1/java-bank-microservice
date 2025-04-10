@@ -2,11 +2,12 @@ spring:
   application:
     name: "accounts"
   profiles:
-    active: "qa"
-  datasource:
-    url:
-    username:
-    password:
+    active: "default"
+    #  datasource: will be fetched from spring cloud
+    datasource:
+      url: ""
+      username: ""
+      password: ""
     hikari:
       maximum-pool-size: "5"
       maximum-idle: "2"
@@ -20,11 +21,11 @@ spring:
   config:
     import: "optional:configserver:http://localhost:8071"
 
-rabbitmq:
-  host: "localhost"
-  port: 5672
-  username: "guest"
-  password: "guest"
+#rabbitmq:
+#  host: "localhost"
+#  port: 5672
+#  username: "guest"
+#  password: "guest"
 
 management:
   endpoints:

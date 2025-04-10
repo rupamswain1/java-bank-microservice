@@ -5,11 +5,11 @@ spring:
   application:
     name: "loans"
   profiles:
-    active: "prod"
+    active: "default"
   datasource:
-    url:
-    username:
-    password:
+    url: ""
+    username: ""
+    password: ""
   jpa:
     hibernate:
       ddl-auto: "update"

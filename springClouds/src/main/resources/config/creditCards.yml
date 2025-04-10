@@ -1,6 +1,10 @@
 build:
   version: "1.0"
-
+spring:
+  datasource:
+    url: ""
+    username: ""
+    password: ""
 credit-cards:
   message: "creditCards default config"
   email: "cards-default@cards.com"

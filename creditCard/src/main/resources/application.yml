@@ -5,9 +5,9 @@ spring:
   application:
     name: "creditCards"
   profiles:
-    active: "qa"
+    active: "default"
   datasource:
-    url:
+    url: ""
     username: ""
     password: ""
     hikari:
@@ -23,12 +23,12 @@ spring:
   config:
     import: "optional:configserver:http://localhost:8071"
 
-
-rabbitmq:
-  host: "localhost"
-  port: 5672
-  username: "guest"
-  password: "guest"
+#
+#rabbitmq:
+#  host: "localhost"
+#  port: 5672
+#  username: "guest"
+#  password: "guest"
 
 management:
   endpoints:

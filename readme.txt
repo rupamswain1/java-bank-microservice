@@ -6,3 +6,5 @@
     docker compose up -d
 3. which ever profile you choose (default, qa, prod) the application will fetch build info from the respective profile from github, which is located in springClouds/src/main/resources/config
 if you change the configs in github to get the refreshed data call the /actuator/busrefresh endpoint of any of the services using a POST request. to automate it a webhook needs to be setup
+
+Data base credentials will be fetched from the spring cloud/ config server, i we want to set the configs from git then add the properties to their respective folders
