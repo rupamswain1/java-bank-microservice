@@ -1,10 +1,10 @@
-package in.rupam.springClouds;
+package in.rupam.eurekaServer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringCloudsApplicationTests {
+class EurekaServerApplicationTests {
 
 	@Test
 	void contextLoads() {
