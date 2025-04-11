@@ -36,14 +36,9 @@ management:
       exposure:
         include: "*"
   endpoint:
-    enable:
-      shutdown: true
-    info:
-      env:
-        access: unrestricted
-endpoints:
-  shutdown:
-    enabled: true
+    shutdown:
+      enabled: true
+
 eureka:
   instance:
     preferIpAddress: true
