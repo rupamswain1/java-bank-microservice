@@ -1,0 +1,38 @@
+package in.rupam.accounts.services.impl;
+
+import in.rupam.accounts.dto.AllCustomerDetailsDto;
+import in.rupam.accounts.dto.CreditCardResponseDto;
+import in.rupam.accounts.dto.LoanDto;
+import in.rupam.accounts.exceptions.ResourceNotAvailableException;
+import in.rupam.accounts.model.Account;
+import in.rupam.accounts.model.Customer;
+import in.rupam.accounts.repository.AccountRepository;
+import in.rupam.accounts.repository.CustomerRepository;
+import in.rupam.accounts.services.ICustomerDetailsService;
+import in.rupam.accounts.services.client.CardsFeignClient;
+import in.rupam.accounts.services.client.LoansFeignClient;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
+
+@AllArgsConstructor
+public class CustomerDetailsService implements ICustomerDetailsService {
+
+    private AccountRepository accountRepository;
+    private CustomerRepository customerRepository;
+    private CardsFeignClient cardsFeignClient;
+    private LoansFeignClient loansFeignClient;
+
+    @Override
+    public AllCustomerDetailsDto getAllCustomerDetails(String mobileNumber) {
+        Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(()->new ResourceNotAvailableException("Customer", "mobileNumber", mobileNumber));
+        Account account = accountRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(
+                ()->new ResourceNotAvailableException("Customer", "mobileNumber", mobileNumber)
+        );
+        List<LoanDto> loans = loansFeignClient.getCustomerLoans(mobileNumber).getBody();
+        List<CreditCardResponseDto> creditCards = cardsFeignClient.getCardForCustomer(mobileNumber);
+        //create a mapper that will take these details and set it to AllCustomerDetailsDto
+    }
+}

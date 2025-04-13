@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @FeignClient("loans")
-public interface LonsFeignClient {
-    public ResponseEntity<List<LoanDto>> getCustomerLoans(@RequestParam String mobileNumber)
+public interface LoansFeignClient {
+    public ResponseEntity<List<LoanDto>> getCustomerLoans(@RequestParam String mobileNumber);
 }
