@@ -4,6 +4,7 @@ import in.rupam.accounts.dto.AllCustomerDetailsDto;
 import in.rupam.accounts.dto.CreditCardResponseDto;
 import in.rupam.accounts.dto.LoanDto;
 import in.rupam.accounts.exceptions.ResourceNotAvailableException;
+import in.rupam.accounts.mapper.CustomerDetailsMapper;
 import in.rupam.accounts.model.Account;
 import in.rupam.accounts.model.Customer;
 import in.rupam.accounts.repository.AccountRepository;
@@ -13,11 +14,14 @@ import in.rupam.accounts.services.client.CardsFeignClient;
 import in.rupam.accounts.services.client.LoansFeignClient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @AllArgsConstructor
+@Service
 public class CustomerDetailsService implements ICustomerDetailsService {
 
     private AccountRepository accountRepository;
@@ -33,6 +37,10 @@ public class CustomerDetailsService implements ICustomerDetailsService {
         );
         List<LoanDto> loans = loansFeignClient.getCustomerLoans(mobileNumber).getBody();
         List<CreditCardResponseDto> creditCards = cardsFeignClient.getCardForCustomer(mobileNumber);
-        //create a mapper that will take these details and set it to AllCustomerDetailsDto
+        return CustomerDetailsMapper.mapToAllCustomerDto(customer,account,loans,creditCards,new AllCustomerDetailsDto());
     }
-}
+
+
+
+    }
+

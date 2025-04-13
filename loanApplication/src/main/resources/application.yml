@@ -1,5 +1,5 @@
 server:
-  port: 8090
+  port: "8090"
 
 spring:
   application:
@@ -10,19 +10,20 @@ spring:
     url: ""
     username: ""
     password: ""
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
+      idle-timeout: 30000
+      data-source-properties:
+        cachePrepStmts: false
   jpa:
     hibernate:
-      ddl-auto: "update"
-    show-sql: "true"
-  hikari:
-    maximum-pool-size: 5
-    minimum-idle: 2
-    idle-timeout: 30000
-    data-source-properties:
-      cachePrepStmts: "false"
+      ddl.auto: "update"
+      show-sql: true
   config:
     import: "optional:configserver:http://localhost:8071"
 
+#
 #rabbitmq:
 #  host: "localhost"
 #  port: 5672
@@ -50,7 +51,5 @@ eureka:
 info:
   app:
     name: "loans"
-    description: "loans application"
+    description: "loan Application"
     version: "1.0.1"
-
-
