@@ -1,39 +1,51 @@
 services:
-  rabbit:
-    image: rabbitmq:3.12-management
-    hostname: rabbitmq
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    healthcheck:
-      test: [ "CMD", "rabbitmq-diagnostics", "ping" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
+#  rabbit:
+#    image: rabbitmq:3.12-management
+#    hostname: rabbitmq
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"
+#    healthcheck:
+#      test: [ "CMD", "rabbitmq-diagnostics", "ping" ]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
   configserver:
     image: "rupam/configserver:v1"
 #    image: "javaBank/configserver:v1"
     container_name: "configserver-ms"
     ports:
       - "8071:8071"
-    depends_on:
-      rabbit:
-        condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "--fail", "--silent", "http://localhost:8071/actuator/health/readiness"]
       interval: 10s
       timeout: 5s
       retries: 10
       start_period: 10s
-    deploy:
-      resources:
-        limits:
-          memory: 500m
     extends:
       file: common-config.yml
       service: microservice-base-config
-
+  eurekaserver:
+    image: "rupam/eurekaserver:v1"
+    #    image: "javaBank/configserver:v1"
+    container_name: "eurekaserver-ms"
+    ports:
+      - "8070:8070"
+    depends_on:
+      configserver:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "--silent", "http://localhost:8070/actuator/health/readiness" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
+      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
+    extends:
+      file: common-config.yml
+      service: microservice-base-config
   accounts:
     image: "rupam/accounts:v1"
 #    image: "javaBank/accounts:v1"
@@ -43,10 +55,6 @@ services:
     depends_on:
       configserver:
         condition: service_healthy
-    deploy:
-      resources:
-        limits:
-          memory: 500m
     extends:
       file: common-config.yml
       service: microservice-configserver-config
@@ -60,10 +68,6 @@ services:
     depends_on:
       configserver:
         condition: service_healthy
-    deploy:
-      resources:
-        limits:
-          memory: 500m
     extends:
       file: common-config.yml
       service: microservice-configserver-config
@@ -77,10 +81,6 @@ services:
     depends_on:
       configserver:
         condition: service_healthy
-    deploy:
-      resources:
-        limits:
-          memory: 500m
     extends:
       file: common-config.yml
       service: microservice-configserver-config

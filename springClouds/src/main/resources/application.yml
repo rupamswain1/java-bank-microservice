@@ -3,21 +3,21 @@ server:
 
 spring:
   profiles:
-    active: native
-#    active: "git"
+#    active: native
+    active: "git"
 
   cloud:
     config:
       server:
-        native:
-          search-locations: classpath:/config/, file:///F:/Development/java\java-bank-microservice\springClouds/config-files
-#        git:
-#          uri: "https://github.com/rupamswain1/java-bank-microservice.git"
-#          default-label: main
-#          timeout: 5
-#          search-paths: springClouds/src/main/resources/config
-#          clone-on-start: true
-#          force-pull: true
+#        native:
+#          search-locations: classpath:/config/, file:///F:/Development/java\java-bank-microservice\springClouds/config-files
+        git:
+          uri: "https://github.com/rupamswain1/java-bank-microservice.git"
+          default-label: main
+          timeout: 5
+          search-paths: springClouds/src/main/resources/config
+          clone-on-start: true
+          force-pull: true
 encrypt:
   key: "thisIsADemoKeyToTestEncryption"
 management:
