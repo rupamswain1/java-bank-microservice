@@ -1,11 +1,5 @@
 build:
   version: "1.0"
-spring:
-  datasource:
-    url: ""
-    username: ""
-    password: ""
-    driver-class-name: org.postgresql.Driver
 accounts:
   message: "accounts default config"
   email: "{cipher}566881f9979be372eda65e7ada82f9fd61c41d85bddc8a11e2552be4fa992be44f619dc4c613e6bcadddb64f019b2805"
