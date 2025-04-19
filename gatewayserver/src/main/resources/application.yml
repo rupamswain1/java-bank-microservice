@@ -1,27 +1,30 @@
-server:
-	application:
-		name: "gatewayserver"
-	config:
-		import: "optional:configserver:http://localhost:8071/"
-	cloud:
-		gateway:
-			discovery:
-				locator:
-					enabled: true
-			
+spring:
+  application:
+    name: "gatewayserver"
+  config:
+    import: "optional:configserver:http://localhost:8071/"
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowercaseServiceId: true
+
 management:
-	endpoints:
-		web:
-			exposure:
-				include: "*"
-	endpoint:
-		dateway:
-			enabled: true
-	info:
-		env:
-			enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      enabled: true
+  info:
+    env:
+      enabled: true
+
 info:
-	app:
-		name: "gatewayserver"
-		description: "Gateway Server"
-		varsion: "1.0.0"
+  app:
+    name: "gatewayserver"
+    description: "Gateway Server"
+    version: "1.0.0"

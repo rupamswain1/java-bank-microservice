@@ -1,0 +1,184 @@
+{
+	"info": {
+		"_postman_id": "e25e9315-9587-4361-b0e2-a92361d5b3cd",
+		"name": "Gateway",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7157477"
+	},
+	"item": [
+		{
+			"name": "get customer cards",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8072/javams/creditcards/api/getCustomerCards?customerMobileNumber=1234567890",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8072",
+					"path": [
+						"javams",
+						"creditcards",
+						"api",
+						"getCustomerCards"
+					],
+					"query": [
+						{
+							"key": "customerMobileNumber",
+							"value": "1234567890"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create Account",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"test1\",\n    \"email\":\"test1@test.com\",\n    \"mobileNumber\":\"1234567892\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8072/javams/accounts/api/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8072",
+					"path": [
+						"javams",
+						"accounts",
+						"api",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update customer",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"testUpdated2\",\n    \"email\": \"testUpdated2@test.com\",\n    \"mobileNumber\": \"1234567892\",\n    \"accountDto\": {\n        \"accountNumber\": 1727292493,\n        \"accountType\": \"Current2\",\n        \"branchAddress\": \"Airport Road2\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8072/javams/accounts/api/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8072",
+					"path": [
+						"javams",
+						"accounts",
+						"api",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get customer loans",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8072/javams/loans/api/getCustomerLoans?mobileNumber=1234567890",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8072",
+					"path": [
+						"javams",
+						"loans",
+						"api",
+						"getCustomerLoans"
+					],
+					"query": [
+						{
+							"key": "mobileNumber",
+							"value": "1234567890"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetch customer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8072/javams/accounts/api/fetch?mobileNumber=1234567892",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8072",
+					"path": [
+						"javams",
+						"accounts",
+						"api",
+						"fetch"
+					],
+					"query": [
+						{
+							"key": "mobileNumber",
+							"value": "1234567892"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "accounts - fetchAll details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8072/javams/accounts/api/getCustomerData?mobileNumber=1234567892",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8072",
+					"path": [
+						"javams",
+						"accounts",
+						"api",
+						"getCustomerData"
+					],
+					"query": [
+						{
+							"key": "mobileNumber",
+							"value": "1234567892"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
