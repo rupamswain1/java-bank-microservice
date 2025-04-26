@@ -55,6 +55,12 @@ services:
     depends_on:
       configserver:
         condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "--silent", "http://localhost:8080/actuator/health/readiness" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     extends:
       file: common-config.yml
       service: microservice-configserver-config
@@ -68,6 +74,12 @@ services:
     depends_on:
       configserver:
         condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "--silent", "http://localhost:8090/actuator/health/readiness" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     extends:
       file: common-config.yml
       service: microservice-configserver-config
@@ -80,6 +92,31 @@ services:
       - "9000:9000"
     depends_on:
       configserver:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "--silent", "http://localhost:9000/actuator/health/readiness" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+  gatewayserver:
+    image: "rupam/gatewayserver:v1"
+    container_name: gatewayserver-ms
+    ports:
+      - "8072:8072"
+    depends_on:
+      configserver:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+      accounts:
+        condition: service_healthy
+      loans:
+        condition: service_healthy
+      creditcard:
         condition: service_healthy
     extends:
       file: common-config.yml
