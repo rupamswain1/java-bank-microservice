@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient("creditcards")
+@FeignClient(name = "creditcards", fallback = CardsFeignFallback.class)
 public interface CardsFeignClient {
     @GetMapping(value = "/api/getCustomerCards", consumes = "application/json")
     public List<CreditCardResponseDto> getCardForCustomer(@RequestParam String customerMobileNumber);

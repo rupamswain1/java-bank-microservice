@@ -17,7 +17,10 @@ public class GatewayserverApplication {
 	public RouteLocator myRouteConfig(RouteLocatorBuilder routeLocatorBuilder){
 		return routeLocatorBuilder.routes()
 				.route(p->p.path("/javams/accounts/**")
-						.filters(f->f.rewritePath("/javams/accounts/(?<segment>.*)","/${segment}"))
+						.filters(f->f.rewritePath("/javams/accounts/(?<segment>.*)","/${segment}")
+								.circuitBreaker(config->config.setName("accountsCircuitBreaker")
+										.setFallbackUri("forward:/contactSupport")
+								))
 						.uri("lb://Accounts"))
 				.route(p->p.path("/javams/loans/**")
 						.filters(f->f.rewritePath("/javams/loans/(?<segment>.*)","/${segment}"))

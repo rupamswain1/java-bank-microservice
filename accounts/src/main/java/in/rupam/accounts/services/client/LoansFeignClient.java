@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient("loans")
+@FeignClient(name = "loans", fallback = LoanFeignFallback.class)
 public interface LoansFeignClient {
     @GetMapping("/api/getCustomerLoans")
     public ResponseEntity<List<LoanDto>> getCustomerLoans(@RequestParam String mobileNumber);

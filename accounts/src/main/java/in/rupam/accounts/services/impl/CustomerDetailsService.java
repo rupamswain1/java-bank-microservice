@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,16 +32,19 @@ public class CustomerDetailsService implements ICustomerDetailsService {
 
     @Override
     public AllCustomerDetailsDto getAllCustomerDetails(String mobileNumber) {
-        Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(()->new ResourceNotAvailableException("Customer", "mobileNumber", mobileNumber));
+        Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(() -> new ResourceNotAvailableException("Customer", "mobileNumber", mobileNumber));
         Account account = accountRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(
-                ()->new ResourceNotAvailableException("Customer", "mobileNumber", mobileNumber)
+                () -> new ResourceNotAvailableException("Customer", "mobileNumber", mobileNumber)
         );
-        List<LoanDto> loans = loansFeignClient.getCustomerLoans(mobileNumber).getBody();
+        ResponseEntity<List<LoanDto>> loansResponse = loansFeignClient.getCustomerLoans(mobileNumber);
+        List<LoanDto> loans = null;
+        if (loansResponse != null) {
+            loans = loansResponse.getBody();
+        }
         List<CreditCardResponseDto> creditCards = cardsFeignClient.getCardForCustomer(mobileNumber);
-        return CustomerDetailsMapper.mapToAllCustomerDto(customer,account,loans,creditCards,new AllCustomerDetailsDto());
+        return CustomerDetailsMapper.mapToAllCustomerDto(customer, account, loans, creditCards, new AllCustomerDetailsDto());
     }
 
 
-
-    }
+}
 
