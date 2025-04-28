@@ -35,13 +35,41 @@
 			"response": []
 		},
 		{
+			"name": "fetch customer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8072/javams/accounts/api/fetch?mobileNumber=1234567892",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8072",
+					"path": [
+						"javams",
+						"accounts",
+						"api",
+						"fetch"
+					],
+					"query": [
+						{
+							"key": "mobileNumber",
+							"value": "1234567892"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "create Account",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"test1\",\n    \"email\":\"test1@test.com\",\n    \"mobileNumber\":\"1234567892\"\n}",
+					"raw": "{\n    \"name\":\"test1\",\n    \"email\":\"test1@test.com\",\n    \"mobileNumber\":\"1234567893\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -175,6 +203,34 @@
 							"key": "mobileNumber",
 							"value": "1234567892"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "CircuitBreaker actuator",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8072/actuator/circuitbreakers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8072",
+					"path": [
+						"actuator",
+						"circuitbreakers"
 					]
 				}
 			},
