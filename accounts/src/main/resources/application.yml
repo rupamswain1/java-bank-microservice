@@ -4,10 +4,11 @@ spring:
   profiles:
     active: "default"
     #  datasource: will be fetched from spring cloud
-    datasource:
-      url: ""
-      username: ""
-      password: ""
+  datasource:
+    url: ""
+    username: ""
+    password: ""
+
     hikari:
       maximum-pool-size: "5"
       maximum-idle: "2"
@@ -20,6 +21,28 @@ spring:
     show-sql: "true"
   config:
     import: "optional:configserver:http://localhost:8071"
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+  resilience4j.circuitbreaker:
+    configs:
+      default:
+        slidingWindowSize: 5
+        failureRateThreshold: 600
+        waitDurationInOpenState: 10000
+        permittedNumberOfCallsInHalfOpenState: 2
+  resilience4j.retry:
+    configs:
+      default:
+        maxAttempts: 3
+        waitDuration: 5
+        enableExponentialBackoff: true
+        exponentialBackoffMultiplier: 2
+        ignoreExceptions:
+          -java.lang.NullPointerException
+        retryExceptions:
+          -java.util.concurrent.TimeoutException
 
 #rabbitmq:
 #  host: "localhost"
@@ -34,6 +57,14 @@ management:
         include: "*"
   endpoint:
     shutdown:
+      enabled: true
+    health:
+      probes:
+        enabled: true
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
       enabled: true
 
 eureka:
