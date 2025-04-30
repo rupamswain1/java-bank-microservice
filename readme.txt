@@ -8,3 +8,6 @@
 if you change the configs in github to get the refreshed data call the /actuator/busrefresh endpoint of any of the services using a POST request. to automate it a webhook needs to be setup
 
 Data base credentials will be fetched from the spring cloud/ config server, i we want to set the configs from git then add the properties to their respective folders
+
+redis container for rate limiter
+docker run -p 6379:6379 --name javaredis -d redis

@@ -1,10 +1,5 @@
 build:
   version: "1.0"
-spring:
-  datasource:
-    url: "jdbc:postgresql://aws-0-ap-south-1.pooler.supabase.com:6543/postgres?user=postgres.glrzfqcaggzwfnscvitg&password=J@nu@rryRup@m"
-    username: "postgres.glrzfqcaggzwfnscvitg"
-    password: "J@nu@rryRup@m"
 credit-cards:
   message: "creditCards default config"
   email: "cards-default@cards.com"

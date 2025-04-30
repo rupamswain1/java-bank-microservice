@@ -6,10 +6,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.circuitbreaker.resilience4j.ReactiveResilience4JCircuitBreakerFactory;
 import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JConfigBuilder;
+import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
+import org.springframework.cloud.gateway.filter.ratelimit.RedisRateLimiter;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import reactor.core.publisher.Mono;
 
 import java.beans.Customizer;
 import java.util.function.Consumer;
@@ -41,9 +44,22 @@ public class GatewayserverApplication {
 						.uri("lb://LOANS")
 				)
 				.route(p->p.path("/javams/creditcards/**")
-						.filters(f->f.rewritePath("/javams/creditcards/(?<segment>.*)","/${segment}"))
+						.filters(f->f.rewritePath("/javams/creditcards/(?<segment>.*)","/${segment}")
+								.requestRateLimiter(config->config.setRateLimiter(redisRateLimiter())
+										.setKeyResolver(userKeyResolver())
+								)
+						)
 				.uri("lb://CREDITCARDS"))
 				.build();
 	}
 
+	@Bean
+	public RedisRateLimiter redisRateLimiter(){
+		return new RedisRateLimiter(1,1,1);
+	}
+
+	@Bean
+	KeyResolver userKeyResolver(){
+		return exchange-> Mono.justOrEmpty(exchange.getRequest().getHeaders().getFirst("user")).defaultIfEmpty("anonymous");
+	}
 }

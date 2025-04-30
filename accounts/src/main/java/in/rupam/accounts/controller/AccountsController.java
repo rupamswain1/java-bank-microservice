@@ -6,6 +6,7 @@ import in.rupam.accounts.dto.CustomerDto;
 import in.rupam.accounts.dto.ErrorMessageDto;
 import in.rupam.accounts.dto.ResponseDto;
 import in.rupam.accounts.services.impl.AccountService;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -87,12 +88,16 @@ public class AccountsController {
                     )
             )
     })
-
+    @RateLimiter(name = "fetchCustomer", fallbackMethod = "fetchCustomerLimiter")
     @GetMapping("/fetch")
     public ResponseEntity<CustomerDto> fetchCustomer(@RequestParam
                                                      @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile Number must be 10 digits")
                                                      String mobileNumber) {
         return new ResponseEntity<>(accountService.getCustomer(mobileNumber), HttpStatus.OK);
+    }
+
+    public ResponseEntity<String> fetchCustomerLimiter(Throwable throwable) {
+        return ResponseEntity.status(HttpStatus.OK).body("Ratelimiter Hit in accounts");
     }
 
 
