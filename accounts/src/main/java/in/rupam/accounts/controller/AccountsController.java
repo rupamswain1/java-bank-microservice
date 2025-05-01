@@ -96,7 +96,7 @@ public class AccountsController {
         return new ResponseEntity<>(accountService.getCustomer(mobileNumber), HttpStatus.OK);
     }
 
-    public ResponseEntity<String> fetchCustomerLimiter(Throwable throwable) {
+    public ResponseEntity<String> fetchCustomerLimiter(String mobileNumber, Throwable throwable) {
         return ResponseEntity.status(HttpStatus.OK).body("Ratelimiter Hit in accounts");
     }
 
