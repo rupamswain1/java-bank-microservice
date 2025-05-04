@@ -18,6 +18,7 @@ spring:
           search-paths: springClouds/src/main/resources/config
           clone-on-start: true
           force-pull: true
+
 encrypt:
   key: "thisIsADemoKeyToTestEncryption"
 management:
@@ -34,3 +35,7 @@ management:
     health:
       probes:
         enabled: true
+  #micromeeter configuration
+  metrics:
+    tags:
+      application: ${spring.application.name}

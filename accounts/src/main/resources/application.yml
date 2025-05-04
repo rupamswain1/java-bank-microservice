@@ -5,15 +5,13 @@ spring:
     active: "default"
     #  datasource: will be fetched from spring cloud
   datasource:
-    url: ""
-    username: "
-    password: ""
+
     hikari:
       maximum-pool-size: "5"
-                maximum-idle: "2"
-                idle-timeout: "30000"
-                data-source-properties:
-                  cachePrepStmts: "false"
+      maximum-idle: "2"
+      idle-timeout: "30000"
+      data-source-properties:
+        cachePrepStmts: "false"
   jpa:
     hibernate:
       ddl-auto: "update"
@@ -86,3 +84,7 @@ info:
     name: "accounts"
     description: "Accounts Application"
     version: "1.0.1"
+#micromeeter configuration
+metrics:
+  tags:
+    application: ${spring.application.name}
