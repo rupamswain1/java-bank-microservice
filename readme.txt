@@ -11,3 +11,6 @@ Data base credentials will be fetched from the spring cloud/ config server, i we
 
 redis container for rate limiter
 docker run -p 6379:6379 --name javaredis -d redis
+
+Prometheus url:
+http://localhost:9090/targets?search=
