@@ -14,6 +14,8 @@ import in.rupam.creditCard.service.ICreditCardService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,7 @@ import java.util.Random;
 @Setter
 @NoArgsConstructor
 public class CreditCardService implements ICreditCardService {
+    private static final Logger logger = LoggerFactory.getLogger(CreditCardService.class);
     @Autowired
     CreditCardRepo creditCardRepo;
     /**
@@ -66,9 +69,11 @@ public class CreditCardService implements ICreditCardService {
      */
     @Override
     public CreditCardResponseDto gerCard(Long cardNumber) {
+        logger.debug("getCard started");
        CreditCard creditCard = creditCardRepo.findById(cardNumber).orElseThrow(()->new NotFoundException(
                "creditCardNumber", cardNumber
         ));
+        logger.debug("getCard ended");
         return CreditCardMapper.creditCardToCreditCardResponseDto(creditCard,new CreditCardResponseDto());
     }
 

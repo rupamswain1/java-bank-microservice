@@ -49,3 +49,11 @@ resilience4j.circuitbreaker:
 metrics:
   tags:
     application: $(spring.application.name
+
+logging:
+  level:
+    in:
+      rupam:
+        gatewayserver: DEBUG
+  pattern:
+    level: "%5p[${spring.application.name},%X{trace_id},%X{span_id}]"

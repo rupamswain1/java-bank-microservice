@@ -8,6 +8,8 @@ import com.rupam.loanApplication.model.Loan;
 import com.rupam.loanApplication.repository.LoanRepository;
 import com.rupam.loanApplication.service.ILoanService;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,7 @@ import java.util.Random;
 @AllArgsConstructor
 @Transactional
 public class LoanService implements ILoanService {
+    private static final Logger logger = LoggerFactory.getLogger(LoanService.class);
     LoanRepository loanRepository;
     /**
      * @param loanDto details of loan to be added
@@ -50,6 +53,7 @@ public class LoanService implements ILoanService {
      */
     @Override
     public List<LoanDto> getCustomerLoan(String mobileNumber) {
+        logger.debug("getCustomerLoan Started");
         List<Loan> loans = loanRepository.findByCustomerMobileNumber(mobileNumber).orElseThrow(
                 ()->new ResourceNotAvailableException("Customer", "mobileNumber",mobileNumber)
         );
@@ -57,6 +61,7 @@ public class LoanService implements ILoanService {
         for(Loan loan:loans){
            loanList.add(LoanMapper.loanToLoanDto(loan, new LoanDto()));
         }
+        logger.debug("getCustomerLoan end");
         return loanList;
     }
 

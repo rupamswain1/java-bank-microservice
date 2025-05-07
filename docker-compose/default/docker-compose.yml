@@ -101,6 +101,19 @@ services:
     extends:
       file: common-config.yml
       service: network-deploy-service
+
+  tempo:
+    image: grafana/tempo
+    container_name: tempo
+    command: -config.file /etc/tempo-comfig.yml
+    ports:
+      - "3110:3100"
+      - "4317:4317"
+    volumes:
+      - ../observability/tempo/tempo.yml:/etc/tempo-config.yml
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
   grafana:
     image: grafana/grafana:latest
     environment:
@@ -238,7 +251,9 @@ services:
       start_period: 10s
     extends:
       file: common-config.yml
-      service: microservice-base-config
+      service: microservice-base-
+    environment:
+      OTEL_SERVICE_NAME: "congifserver"
   eurekaserver:
     image: "rupam/eurekaserver:v1"
     #    image: "javaBank/configserver:v1"
@@ -257,6 +272,7 @@ services:
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
       SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
+      OTEL_SERVICE_NAME: "eurekaserver"
     extends:
       file: common-config.yml
       service: microservice-base-config
@@ -278,7 +294,8 @@ services:
     extends:
       file: common-config.yml
       service: microservice-configserver-config
-
+    environment:
+      OTEL_SERVICE_NAME: "accounts"
   loans:
     image: "rupam/loanapplication:v1"
 #    image: "javaBank/loans:v1"
@@ -297,6 +314,8 @@ services:
     extends:
       file: common-config.yml
       service: microservice-configserver-config
+    environment:
+      OTEL_SERVICE_NAME: "loans"
 
   creditcard:
     image: "rupam/creditcard:v1"
@@ -316,6 +335,8 @@ services:
     extends:
       file: common-config.yml
       service: microservice-configserver-config
+    environment:
+      OTEL_SERVICE_NAME: "creditcard"
   gatewayserver:
     image: "rupam/gatewayserver:v1"
     container_name: gatewayserver-ms
@@ -342,7 +363,7 @@ services:
       SPRING_DATA_REDIS_HOST: redis
       SPRING_DATA_REDIS_PORT: 6379
       SPRING_DATA_REDIS_TIMEOUT: 1s
-
+      OTEL_SERVICE_NAME: "gatewayserver"
 networks:
   javams:
     driver: bridge

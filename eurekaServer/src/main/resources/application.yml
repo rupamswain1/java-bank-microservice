@@ -25,3 +25,10 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+logging:
+  level:
+    in:
+      rupam:
+        eurekaServer: DEBUG
+  pattern:
+    level: "%5p[${spring.application.name},%X{trace_id},%X{span_id}]"

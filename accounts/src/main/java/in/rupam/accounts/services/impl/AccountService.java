@@ -13,6 +13,9 @@ import in.rupam.accounts.repository.AccountRepository;
 import in.rupam.accounts.repository.CustomerRepository;
 import in.rupam.accounts.services.IAccountService;
 import lombok.AllArgsConstructor;
+import lombok.extern.flogger.Flogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,7 @@ import java.util.Random;
 @Service
 @AllArgsConstructor
 public class AccountService implements IAccountService {
+    private static final Logger logger = LoggerFactory.getLogger(AccountService.class);
 
     private AccountRepository accountRepository;
     private CustomerRepository customerRepository;
@@ -47,16 +51,17 @@ public class AccountService implements IAccountService {
      */
     @Override
     public CustomerDto getCustomer(String mobileNumber) {
-        System.out.println(mobileNumber);
+        logger.debug("getCustomer method start");
         Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
                 () -> new ResourceNotAvailableException("Customer", "mobileNumber", mobileNumber)
         );
-        System.out.println(customer.getCustomerId());
+        logger.debug("getting accounts");
         Account account = accountRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(
                 () -> new ResourceNotAvailableException("Customer", "mobileNumber", mobileNumber)
         );
         CustomerDto customerDto = CustomerMapper.mapCustomerToDto(customer, new CustomerDto());
         customerDto.setAccountDto(AccountMapper.mapAccountsToDto(account, new AccountDto()));
+        logger.debug("getCustomer method end");
         return customerDto;
     }
 
