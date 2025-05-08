@@ -23,7 +23,7 @@ services:
       - minio
     healthcheck:
       test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3100/ready || exit 1" ]
-      interval: 10s
+      interval: 20s
       timeout: 5s
       retries: 5
     networks: &loki-dns
@@ -42,7 +42,7 @@ services:
       - ../observability/loki/loki-config.yaml:/etc/loki/config.yaml
     healthcheck:
       test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3100/ready || exit 1" ]
-      interval: 10s
+      interval: 20s
       timeout: 5s
       retries: 5
     depends_on:
@@ -105,9 +105,9 @@ services:
   tempo:
     image: grafana/tempo
     container_name: tempo
-    command: -config.file /etc/tempo-comfig.yml
+    command: -config.file /etc/tempo-config.yml
     ports:
-      - "3110:3100"
+      - "3110:3200"
       - "4317:4317"
     volumes:
       - ../observability/tempo/tempo.yml:/etc/tempo-config.yml
@@ -245,13 +245,13 @@ services:
       - "8071:8071"
     healthcheck:
       test: ["CMD", "curl", "--fail", "--silent", "http://localhost:8071/actuator/health/readiness"]
-      interval: 10s
+      interval: 20s
       timeout: 5s
-      retries: 10
+      retries: 20
       start_period: 10s
     extends:
       file: common-config.yml
-      service: microservice-base-
+      service: microservice-base-config
     environment:
       OTEL_SERVICE_NAME: "congifserver"
   eurekaserver:
@@ -265,9 +265,9 @@ services:
         condition: service_healthy
     healthcheck:
       test: [ "CMD", "curl", "--fail", "--silent", "http://localhost:8070/actuator/health/readiness" ]
-      interval: 10s
+      interval: 20s
       timeout: 5s
-      retries: 10
+      retries: 20
       start_period: 10s
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
@@ -287,9 +287,9 @@ services:
         condition: service_healthy
     healthcheck:
       test: [ "CMD", "curl", "--fail", "--silent", "http://localhost:8080/actuator/health/readiness" ]
-      interval: 10s
+      interval: 20s
       timeout: 5s
-      retries: 10
+      retries: 20
       start_period: 10s
     extends:
       file: common-config.yml
@@ -307,9 +307,9 @@ services:
         condition: service_healthy
     healthcheck:
       test: [ "CMD", "curl", "--fail", "--silent", "http://localhost:8090/actuator/health/readiness" ]
-      interval: 10s
+      interval: 20s
       timeout: 5s
-      retries: 10
+      retries: 20
       start_period: 10s
     extends:
       file: common-config.yml
@@ -328,9 +328,9 @@ services:
         condition: service_healthy
     healthcheck:
       test: [ "CMD", "curl", "--fail", "--silent", "http://localhost:9000/actuator/health/readiness" ]
-      interval: 10s
+      interval: 20s
       timeout: 5s
-      retries: 10
+      retries: 20
       start_period: 10s
     extends:
       file: common-config.yml

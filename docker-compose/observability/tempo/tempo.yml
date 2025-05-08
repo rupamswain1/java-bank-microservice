@@ -1,5 +1,5 @@
 server:
-  http_listen_port: 3100
+  http_listen_port: 3200
 
 distributor:
   receivers:
@@ -24,10 +24,10 @@ compactor:
     max_compaction_objects: 1000000
     compacted_block_retention: 10m
 
-#storage:
-#  trace:
-#    backend: local
-#    local:
-#      path: /tmp/tempo/traces
-#    wal:
-#      path: /tmp/tempo/wal
+storage:
+  trace:
+    backend: local
+    local:
+      path: /tmp/tempo/traces
+    wal:
+      path: /tmp/tempo/wal
