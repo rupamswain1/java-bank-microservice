@@ -5,12 +5,8 @@ distributor:
   receivers:
     otlp:
       protocols:
-        http:
         grpc:
-#    jaeger:
-#      protocols:
-#        thrift_http:
-#        grpc:
+        http:
 
 ingester:
   trace_idle_period: 10s
@@ -19,9 +15,9 @@ ingester:
 
 compactor:
   compaction:
-    block_retention: 1h
     compaction_window: 1h
     max_compaction_objects: 1000000
+    block_retention: 1h
     compacted_block_retention: 10m
 
 storage:
@@ -29,8 +25,6 @@ storage:
     backend: local
     local:
       path: /tmp/tempo/blocks
-#    wal:
-#      path: /tmp/tempo/wal
     pool:
       max_workers: 100
       queue_depth: 10000

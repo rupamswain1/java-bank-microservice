@@ -1,4 +1,4 @@
-appVersion: 1
+apiVersion: 1
 
 deleteDatasources:
   - name: Prometheus
@@ -15,7 +15,7 @@ datasources:
     basicAuth: false
     isDefault: false
     version: 1
-    enable: true
+    editable: true
     jsonData:
       httpMethod: GET
   - name: Tempo
@@ -37,13 +37,13 @@ datasources:
     uid: loki
     access: proxy
     orgId: 1
-    enabled: true
+    editable: true
     url: http://gateway:3100
     jsonData:
       httpHeaderName1: "X-Scope-OrgID"
       derivedFields:
         - datasourceUid: tempo
-          marcherRegex: "\\[.+,(.+),.+/\\]"
+          matcherRegex: "\\[.+,(.+),.+\\]"
           name: TraceID
           url: '$${__value.raw}'
     secureJsonData:
