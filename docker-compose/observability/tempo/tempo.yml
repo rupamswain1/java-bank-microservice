@@ -1,5 +1,5 @@
 server:
-  http_listen_port: 3200
+  http_listen_port: 3100
 
 distributor:
   receivers:
@@ -28,6 +28,9 @@ storage:
   trace:
     backend: local
     local:
-      path: /tmp/tempo/traces
-    wal:
-      path: /tmp/tempo/wal
+      path: /tmp/tempo/blocks
+#    wal:
+#      path: /tmp/tempo/wal
+    pool:
+      max_workers: 100
+      queue_depth: 10000
