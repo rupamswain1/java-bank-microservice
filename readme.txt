@@ -14,3 +14,6 @@ docker run -p 6379:6379 --name javaredis -d redis
 
 Prometheus url:
 http://localhost:9090/targets?search=
+
+keycloak command:
+docker run -p 7080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.2.4 start-dev
