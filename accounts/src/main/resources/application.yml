@@ -5,7 +5,9 @@ spring:
     active: "default"
     #  datasource: will be fetched from spring cloud
   datasource:
-
+    url: "jdbc:postgresql://aws-0-ap-south-1.pooler.supabase.com:6543/postgres?user=postgres.glrzfqcaggzwfnscvitg&password=J@nu@rryRup@m"
+    username: "postgres.glrzfqcaggzwfnscvitg"
+    password: "J@nu@rryRup@m"
     hikari:
       maximum-pool-size: "5"
       maximum-idle: "2"
