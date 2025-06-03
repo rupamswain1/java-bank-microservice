@@ -17,3 +17,19 @@ http://localhost:9090/targets?search=
 
 keycloak command:
 docker run -p 7080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.2.4 start-dev
+
+set client in keycloak:
+1. go to http://localhost:7080/admin/master/console/#/
+2. click on 'clients' and click on 'create client'
+3. enter client ID : test-ms
+4. name : test ms keycloak
+5. in "Capability config" select "Service accounts roles"
+Set the roles:
+1. click on "Realm Roles"
+2. click on "Create Role"
+3. enter role name as "ACCOUNTS" or "LOAN" or "CARDS" and description
+4. Go to your clients
+5. Go to Service Accounts Role
+6. Click on "Assign Role"
+7. use filter and assign the created role
+

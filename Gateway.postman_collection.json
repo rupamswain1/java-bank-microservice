@@ -215,6 +215,82 @@
 			"response": []
 		},
 		{
+			"name": "create Account_Auth",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "client_authentication",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "scope",
+							"value": "openid email profile",
+							"type": "string"
+						},
+						{
+							"key": "clientSecret",
+							"value": "nT7KYNehVGffBIi2nmfQRO5fOIhOeOkb",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "test-ms",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "http://localhost:7080/realms/master/protocol/openid-connect/token",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "clientCredentials_accesstoken",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"test1\",\n    \"email\":\"test1@test.com\",\n    \"mobileNumber\":\"1234567893\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8072/javams/accounts/api/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8072",
+					"path": [
+						"javams",
+						"accounts",
+						"api",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "update customer",
 			"request": {
 				"method": "PUT",
@@ -268,6 +344,35 @@
 							"key": "mobileNumber",
 							"value": "1234567890"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Loan",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customerMobileNumber\":\"1234567890\",\n    \"amount\":\"2000000\",\n    \"interestRate\":9.5,\n    \"durationInMonths\":100,\n    \"loanType\":\"Home Loan\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"create"
 					]
 				}
 			},
