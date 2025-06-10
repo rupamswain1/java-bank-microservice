@@ -24,7 +24,10 @@ spring:
     openfeign:
       circuitbreaker:
         enabled: true
-
+    stream:
+      bindings:
+        sendCommunication-out-O:
+          destination: send-communication
   resilience4j.circuitbreaker:
     configs:
       default:
@@ -50,11 +53,12 @@ spring:
         limitRefreshPeriod: 5s
         limitForPeriod: 1
 
-#rabbitmq:
-#  host: "localhost"
-#  port: 5672
-#  username: "guest"
-#  password: "guest"
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
+    connection-timeout: 10s
 logging:
   level:
     in:

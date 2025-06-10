@@ -2,6 +2,7 @@ package in.rupam.accounts.services.impl;
 
 import in.rupam.accounts.constants.AccountConstants;
 import in.rupam.accounts.dto.AccountDto;
+import in.rupam.accounts.dto.AccountMsgDto;
 import in.rupam.accounts.dto.CustomerDto;
 import in.rupam.accounts.exceptions.CustomerAlreadyExistsException;
 import in.rupam.accounts.exceptions.ResourceNotAvailableException;
@@ -16,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.flogger.Flogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,7 @@ public class AccountService implements IAccountService {
 
     private AccountRepository accountRepository;
     private CustomerRepository customerRepository;
+    private final StreamBridge streamBridge;
 
     /**
      * @param customerDto - Cutomer DTo object
@@ -42,7 +45,14 @@ public class AccountService implements IAccountService {
             throw new CustomerAlreadyExistsException("Customer already exists with mobile number: " + customer.getMobileNumber());
         }
         Customer newCustomer = customerRepository.save(customer);
-        accountRepository.save(createNewAccount(newCustomer));
+        Account savedAccounts = accountRepository.save(createNewAccount(newCustomer));
+    }
+
+    private void sendCommunication(Account account, Customer customer) {
+        var accountMsgDto = new AccountMsgDto(account.getAccountNumber(), customer.getName(), customer.getEmail(), customer.getMobileNumber());
+        logger.info("Sending communication request for the details: {}", accountMsgDto);
+        var result = streamBridge.send("sendCommunicaiton-out-O", accountMsgDto);
+        logger.info("Sending communication request for the details: {}", accountMsgDto);
     }
 
     /**
