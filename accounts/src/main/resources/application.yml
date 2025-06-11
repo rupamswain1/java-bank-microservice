@@ -5,9 +5,7 @@ spring:
     active: "default"
     #  datasource: will be fetched from spring cloud
   datasource:
-    url: "jdbc:postgresql://aws-0-ap-south-1.pooler.supabase.com:6543/postgres?user=postgres.glrzfqcaggzwfnscvitg&password=J@nu@rryRup@m"
-    username: "postgres.glrzfqcaggzwfnscvitg"
-    password: "J@nu@rryRup@m"
+
     hikari:
       maximum-pool-size: "5"
       maximum-idle: "2"
@@ -26,8 +24,20 @@ spring:
         enabled: true
     stream:
       bindings:
-        sendCommunication-out-O:
+        sendCommunication-out-0:
           destination: send-communication
+          content-type: application/json
+          binder: rabbit
+      binders:
+        rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: guest
+                password: guest
   resilience4j.circuitbreaker:
     configs:
       default:

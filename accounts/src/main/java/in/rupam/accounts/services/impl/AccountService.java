@@ -46,13 +46,14 @@ public class AccountService implements IAccountService {
         }
         Customer newCustomer = customerRepository.save(customer);
         Account savedAccounts = accountRepository.save(createNewAccount(newCustomer));
+        sendCommunication(savedAccounts, newCustomer);
     }
 
     private void sendCommunication(Account account, Customer customer) {
         var accountMsgDto = new AccountMsgDto(account.getAccountNumber(), customer.getName(), customer.getEmail(), customer.getMobileNumber());
         logger.info("Sending communication request for the details: {}", accountMsgDto);
         var result = streamBridge.send("sendCommunicaiton-out-O", accountMsgDto);
-        logger.info("Sending communication request for the details: {}", accountMsgDto);
+        logger.info("Sending communication request for the details: {}", result);
     }
 
     /**
