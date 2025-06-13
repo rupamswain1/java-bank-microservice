@@ -29,4 +29,12 @@ public interface IAccountService {
      * @return boolean
      */
     boolean deleteCustomer(String mobileNumber);
+
+    /**
+     * updates the communication sw once recieved from message repo
+     *
+     * @param accountNumber
+     * @return
+     */
+    boolean updateCommunicationStatus(Long accountNumber);
 }

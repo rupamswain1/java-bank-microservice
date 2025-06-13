@@ -123,5 +123,19 @@ public class AccountService implements IAccountService {
         return isDeleted;
     }
 
+    @Override
+    public boolean updateCommunicationStatus(Long accountNumber) {
+        boolean isUpdated = false;
+        if (accountNumber != null) {
+            Account account = accountRepository.findById(accountNumber).orElseThrow(
+                    () -> new ResourceNotAvailableException("Account", "AccountNumber", accountNumber.toString())
+            );
+            account.setCommunicationSW(true);
+            accountRepository.save(account);
+            isUpdated = true;
+        }
+        return isUpdated;
+    }
+
 
 }

@@ -1,9 +1,6 @@
 package in.rupam.accounts.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -18,4 +15,7 @@ public class Account extends BaseModel {
     private String accountType;
 
     private String branchAddress;
+
+    @Column(name = "communication_sw")
+    private Boolean communicationSW;
 }

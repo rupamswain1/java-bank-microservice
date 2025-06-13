@@ -22,12 +22,15 @@ spring:
     openfeign:
       circuitbreaker:
         enabled: true
+    functions:
+      definition: updateCommunication
     stream:
       bindings:
+        updateCommunication-in-0:
+          destination: communication-sent
+          group: ${spring.application.name}
         sendCommunication-out-0:
-          destination: send-communication
-          content-type: application/json
-          binder: rabbit
+          destination: communication-sent
       binders:
         rabbit:
           type: rabbit
