@@ -5,7 +5,9 @@ spring:
     active: "default"
     #  datasource: will be fetched from spring cloud
   datasource:
-
+    url: "jdbc:postgresql://aws-0-ap-south-1.pooler.supabase.com:6543/postgres?user=postgres.glrzfqcaggzwfnscvitg&password=J@nu@rryRup@m"
+    username: "postgres.glrzfqcaggzwfnscvitg"
+    password: "J@nu@rryRup@m"
     hikari:
       maximum-pool-size: "5"
       maximum-idle: "2"
@@ -23,10 +25,10 @@ spring:
       circuitbreaker:
         enabled: true
     functions:
-      definition: updateCommunication
+      definition: updatedCommunication
     stream:
       bindings:
-        updateCommunication-in-0:
+        updatedCommunication-in-0:
           destination: communication-sent
           group: ${spring.application.name}
         sendCommunication-out-0:
